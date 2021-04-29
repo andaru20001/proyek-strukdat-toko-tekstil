@@ -1,7 +1,7 @@
 # JUDUL_PROYEK
 
 Anggota Kelompok:
-* Muhammad Daffa AWlifiandi 14081020016
+* Muhammad Daffa Alifiandi 14081020016
 * NAMA (NPM)
 * NAMA (NPM)
 ---
