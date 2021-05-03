@@ -20,10 +20,10 @@ Melihat masalah ini, kami terpikirkan untuk membuat sebuah program yang dapat me
     2. Mengaplikasikan materi pembelajaran.
 
 * Adapun manfaat dari proyek ini adalah sebagai berikut:
-    - Bagi mahasiswa
-        Manfaat pengerjaan proyek ini bagi mahasiswa adalah menambah pengalaman dan wawasan implementasi struktur data dalam kehidupan nyata khususnya di pembuatan sistem antrian pemesanan.
-    - Bagi masyarakat umum
-        Dalam skala yang kecil, pengerjaan proyek ini diharapkan dapat menambah wawasan masyarakat umum dalam mengorganisir antrian pesanan secara digital. Manfaat lain yang lebih umum dari proyek ini adalah mengajak masyarakat untuk menggunakan komputer untuk menyelesaikan masalah sehari-hari dan meninggalkan cara tradisional yang kurang efektif.
+    1. Bagi mahasiswa
+        - Manfaat pengerjaan proyek ini bagi mahasiswa adalah menambah pengalaman dan wawasan implementasi struktur data dalam kehidupan nyata khususnya di pembuatan sistem antrian pemesanan.
+    2. Bagi masyarakat umum
+        - Dalam skala yang kecil, pengerjaan proyek ini diharapkan dapat menambah wawasan masyarakat umum dalam mengorganisir antrian pesanan secara digital. Manfaat lain yang lebih umum dari proyek ini adalah mengajak masyarakat untuk menggunakan komputer untuk menyelesaikan masalah sehari-hari dan meninggalkan cara tradisional yang kurang efektif.
 
 ## Penjelasan Aplikasi
 
