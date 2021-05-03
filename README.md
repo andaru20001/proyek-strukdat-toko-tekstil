@@ -15,8 +15,6 @@ Melihat masalah ini, kami terpikirkan untuk membuat sebuah program yang dapat me
 
 ## Tujuan dan Manfaat
 
-TUJUAN DAN MANFAAT
-
 * Tujuan dari proposal proyek ini adalah:
     1. Menyelesaikan tugas ujian akhir semester.
     2. Mengaplikasikan materi pembelajaran.
