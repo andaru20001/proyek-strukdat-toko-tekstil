@@ -85,7 +85,7 @@ jelaskan bagaimana kalian bekerja sama, berkoordinasi, pembagian kerja.Tools apa
 untuk bekerja bersama sama cth github, google docs, google meet>ibebaskan sesuai kreatifitas kalian
 !-->
 
-Dalam perancangan proyek UAS ini, kami melakukan teknik targeting, dimana kami menetapkan target waktu tertentu untuk menyelesaikan suatu task yang nantinya dibagi ke setiap anggota kelompok. Untuk targetnya sendiri kami akan melakukan pengerjaan bagian Menu, Tambah, Hapus, dan Search pada tanggal 5 Mei 2021 hingga 10 Mei 2021. Pengerjaan Daftar Pesanan, Edit Pesanan, dan Undo akan dilaksanakan pada 11 Mei 2021  hingga 17 Mei 2021.
+Dalam perancangan proyek UAS ini, kami melakukan targeting, dimana kami menetapkan target waktu tertentu untuk menyelesaikan suatu task yang nantinya dibagi ke setiap anggota kelompok. Untuk targetnya sendiri kami akan melakukan pengerjaan bagian Menu, Tambah, Hapus, dan Search pada tanggal 5 Mei 2021 hingga 10 Mei 2021. Pengerjaan Daftar Pesanan, Edit Pesanan, dan Undo akan dilaksanakan pada 11 Mei 2021  hingga 17 Mei 2021.
 
 Dalam pengerjaan proyek ini kami menggunakan media line dan discord untuk berdiskusi secara langsung maupun tidak langsung. Bentuk koordinasi kami dalam pengerjaan proyek ini adalah dengan saling sharing dan membantu berkaitan dengan materi yang dibutuhkan untuk menyelesaikan proyek program Sistem Antrian Pemesanan Toko Tekstil. Adapun text editor yang digunakan adalah VS Code dengan bahasa C++
 
