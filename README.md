@@ -48,7 +48,7 @@ Perancangan antarmuka meliputi perancangan struktur menu dan perancangan tampila
 
 ![](/images/diagram.png)
 
-Ada enam hal yang ditampilkan dalam menu user website profile ini, yaitu halaman Tambah, Hapus, Search dan Daftar pesanan dan Undo. Halaman Tambah berisi tentang penginputan data yang ingin ditambah ke antrian. Halaman hapus berisi tentang pendeskripsian data yang ingin dihapus oleh user. Halaman Search berisi pendeskripsian data yang ingin dicari oleh user. Halaman Edit pesanan akan mencari data pesanan yang ingin dirubah dan user dapat memanipulasi data tersebut. Halaman Daftar Pesanan menampilkan data - data di _Sistem Antrian Pemesanan Toko Tekstil_. Halaman Undo akan menampilkan proses apa yang di undo. Ketika user sudah melakukan proses di sub halaman maka otomatis user akan diarahkan kemabali ke halaman menu. 
+Ada enam hal yang ditampilkan dalam menu user website profile ini, yaitu halaman Tambah, Hapus, Search dan Daftar pesanan dan Undo. Halaman Tambah berisi tentang penginputan data yang ingin ditambah ke antrian. Halaman hapus berisi tentang pendeskripsian data yang ingin dihapus oleh user. Halaman Search berisi pendeskripsian data yang ingin dicari oleh user. Halaman Edit pesanan akan mencari data pesanan yang ingin dirubah dan user dapat memanipulasi data tersebut. Halaman Daftar Pesanan menampilkan data - data di _Sistem Antrian Pemesanan Toko Tekstil_. Halaman Undo akan menampilkan proses apa yang di undo. Ketika user sudah melakukan proses di sub halaman maka otomatis user akan diarahkan kembali ke halaman menu. 
 
 **Tampilan Halaman Utama (Menu)**
 
