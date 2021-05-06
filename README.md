@@ -15,17 +15,15 @@ Melihat masalah ini, kami terpikirkan untuk membuat sebuah program yang dapat me
 
 ## Tujuan dan Manfaat
 
-TUJUAN DAN MANFAAT
-
 * Tujuan dari proposal proyek ini adalah:
     1. Menyelesaikan tugas ujian akhir semester.
     2. Mengaplikasikan materi pembelajaran.
 
 * Adapun manfaat dari proyek ini adalah sebagai berikut:
-    - Bagi mahasiswa
-        Manfaat pengerjaan proyek ini bagi mahasiswa adalah menambah pengalaman dan wawasan implementasi struktur data dalam kehidupan nyata khususnya di pembuatan sistem antrian pemesanan.
-    - Bagi masyarakat umum
-        Dalam skala yang kecil, pengerjaan proyek ini diharapkan dapat menambah wawasan masyarakat umum dalam mengorganisir antrian pesanan secara digital. Manfaat lain yang lebih umum dari proyek ini adalah mengajak masyarakat untuk menggunakan komputer untuk menyelesaikan masalah sehari-hari dan meninggalkan cara tradisional yang kurang efektif.
+    1. Bagi mahasiswa
+        - Manfaat pengerjaan proyek ini bagi mahasiswa adalah menambah pengalaman dan wawasan implementasi struktur data dalam kehidupan nyata khususnya di pembuatan sistem antrian pemesanan.
+    2. Bagi masyarakat umum
+        - Dalam skala yang kecil, pengerjaan proyek ini diharapkan dapat menambah wawasan masyarakat umum dalam mengorganisir antrian pesanan secara digital. Manfaat lain yang lebih umum dari proyek ini adalah mengajak masyarakat untuk menggunakan komputer untuk menyelesaikan masalah sehari-hari dan meninggalkan cara tradisional yang kurang efektif.
 
 ## Penjelasan Aplikasi
 
@@ -50,7 +48,7 @@ Perancangan antarmuka meliputi perancangan struktur menu dan perancangan tampila
 
 ![](/images/diagram.png)
 
-Ada enam hal yang ditampilkan dalam menu user website profile ini, yaitu halaman Tambah, Hapus, Search dan Daftar pesanan dan Undo. Halaman Tambah berisi tentang penginputan data yang ingin ditambah ke antrian. Halaman hapus berisi tentang pendeskripsian data yang ingin dihapus oleh user. Halaman Search berisi pendeskripsian data yang ingin dicari oleh user. Halaman Edit pesanan akan mencari data pesanan yang ingin dirubah dan user dapat memanipulasi data tersebut. Halaman Daftar Pesanan menampilkan data - data di _Sistem Antrian Pemesanan Toko Tekstil_. Halaman Undo akan menampilkan proses apa yang di undo.
+Ada enam hal yang ditampilkan dalam menu user website profile ini, yaitu halaman Tambah, Hapus, Search dan Daftar pesanan dan Undo. Halaman Tambah berisi tentang penginputan data yang ingin ditambah ke antrian. Halaman hapus berisi tentang pendeskripsian data yang ingin dihapus oleh user. Halaman Search berisi pendeskripsian data yang ingin dicari oleh user. Halaman Edit pesanan akan mencari data pesanan yang ingin dirubah dan user dapat memanipulasi data tersebut. Halaman Daftar Pesanan menampilkan data - data di _Sistem Antrian Pemesanan Toko Tekstil_. Halaman Undo akan menampilkan proses apa yang di undo. Ketika user sudah melakukan proses di sub halaman maka otomatis user akan diarahkan kembali ke halaman menu. 
 
 **Tampilan Halaman Utama (Menu)**
 
@@ -87,9 +85,9 @@ jelaskan bagaimana kalian bekerja sama, berkoordinasi, pembagian kerja.Tools apa
 untuk bekerja bersama sama cth github, google docs, google meet>ibebaskan sesuai kreatifitas kalian
 !-->
 
-Dalam perancangan proyek UAS ini, kami melakukan teknik targeting, dimana kami menetapkan target waktu tertentu untuk menyelesaikan suatu task yang nantinya dibagi ke setiap anggota kelompok. Untuk targetnya sendiri kami akan melakukan pengerjaan bagian Menu, Tambah, Hapus, dan Search pada tanggal 5 Mei 2021 hingga 10 Mei 2021. Pengerjaan Daftar Pesanan, Edit Pesanan, dan Undo akan dilaksanakan pada 11 Mei 2021  hingga 17 Mei 2021.
+Dalam perancangan proyek UAS ini, kami melakukan targeting, dimana kami menetapkan target waktu tertentu untuk menyelesaikan suatu task yang nantinya dibagi ke setiap anggota kelompok. Untuk targetnya sendiri kami akan melakukan pengerjaan bagian Menu, Tambah, Hapus, dan Search pada tanggal 5 Mei 2021 hingga 10 Mei 2021. Pengerjaan Daftar Pesanan, Edit Pesanan, dan Undo akan dilaksanakan pada 11 Mei 2021  hingga 17 Mei 2021.
 
-Dalam pengerjaan proyek ini kami menggunakan media line dan discord untuk berdiskusi secara langsung maupun tidak langsung. Bentuk koordinasi kami dalam pengerjaan proyek ini adalah dengan saling sharing dan membantu berkaitan dengan materi yang dibutuhkan untuk menyelesaikan proyek program Sistem Antrian Pemesanan Toko Tekstil.
+Dalam pengerjaan proyek ini kami menggunakan media line dan discord untuk berdiskusi secara langsung maupun tidak langsung. Bentuk koordinasi kami dalam pengerjaan proyek ini adalah dengan saling sharing dan membantu berkaitan dengan materi yang dibutuhkan untuk menyelesaikan proyek program Sistem Antrian Pemesanan Toko Tekstil. Adapun text editor yang digunakan adalah VS Code dengan bahasa C++
 
 ## Lisensi
 
