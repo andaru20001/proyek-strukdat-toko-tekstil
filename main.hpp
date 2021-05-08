@@ -174,3 +174,52 @@ void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan k
         }
     }
 }
+
+void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) {
+  Pointer temp = Q.head;
+  previous = nullptr;
+  while (temp->kode != search){
+    if (temp->kode == search){
+      break;
+    }
+    else if (temp->next == Q.head->next){
+      previous = temp;
+      temp = temp->next;
+      std::cout<<"kode tidak ditemukan"<<"\n";
+      return;
+    }
+    else{
+      previous = temp;
+      temp = temp->next;
+    }
+  }
+}
+
+void hapusPesanan(Queue& Q, std::string search){
+    Pointer temp;
+    Pointer previous;
+    if(Q.head == nullptr){
+        std::cout<<"list kosong"<<"\n";
+        return;
+    }
+    find(Q, previous, search, temp);
+    if(temp == Q.head){
+        while(previous->next != Q.head){
+            previous = previous->next;
+        }
+        previous->next = Q.head->next;
+        Q.head = previous->next;
+        delete temp;
+    }
+    else if(temp->next = Q.head){
+        previous->next = temp->next;
+        temp->next = nullptr;
+        Q.head = previous->next;
+        delete temp;
+    }
+    else{
+        previous->next = temp->next;
+        temp->next = nullptr;
+        delete temp;
+    }
+}
