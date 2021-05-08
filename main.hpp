@@ -195,15 +195,15 @@ void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) {
   }
 }
 
-void hapusPesanan(Queue& Q, std::string search){
+void hapusPesanan(Queue& Q, std::string search){                //menghapus pesanan yang diinginkan
     Pointer temp;
     Pointer previous;
     if(Q.head == nullptr){
-        std::cout<<"list kosong"<<"\n";
+        std::cout<<"pesanan kosong"<<"\n";
         return;
     }
     find(Q, previous, search, temp);
-    if(temp == Q.head){
+    if(temp == Q.head){                       //kalau pesanannya berada di awal
         while(previous->next != Q.head){
             previous = previous->next;
         }
@@ -211,13 +211,13 @@ void hapusPesanan(Queue& Q, std::string search){
         Q.head = previous->next;
         delete temp;
     }
-    else if(temp->next = Q.head){
+    else if(temp->next = Q.head){            //kalau pesanannya berada di akhir
         previous->next = temp->next;
         temp->next = nullptr;
         Q.head = previous->next;
         delete temp;
     }
-    else{
+    else{                                    //kalau pesanannya berada di tengah2
         previous->next = temp->next;
         temp->next = nullptr;
         delete temp;
