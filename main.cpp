@@ -61,6 +61,9 @@ int main(){
                     isi_data(Q, temp, 2);
                 }
                 break;
+            case 4:
+                daftarPesanan(Q);
+                break;
             case 7:
                 ulang = false;
                 break;
