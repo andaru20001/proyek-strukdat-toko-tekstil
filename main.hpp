@@ -17,7 +17,7 @@ struct Queue{
 };
 
 struct DataStack{
-    Pointer dataTarget;
+    std::string dataTarget;
     std::string Kategori;
     DataStack* next;
 };
@@ -65,7 +65,7 @@ void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){ //Fungsi untuk me
     // Bagian tambah
     if (Kategori == 1){
         PointerData newData = new DataStack;
-        newData->dataTarget = InputPesanan;
+        newData->dataTarget = InputPesanan->kode;
         newData->Kategori = "Tambah";
         pushStack(S, newData);
     }
@@ -219,6 +219,18 @@ void hapusPesanan(Queue& Q, std::string search){                //menghapus pesa
     }
     else{                                    //kalau pesanannya berada di tengah2
         previous->next = temp->next;
+        temp->next = nullptr;
+        delete temp;
+    }
+}
+
+void undo (Stack& S, Queue& Q){
+    Pointer prev = nullptr;
+    Pointer temp = nullptr;
+    find(Q, prev, S.head->dataTarget, temp);
+
+    if (S.head->Kategori == "Tambah"){
+        prev->next = temp->next;
         temp->next = nullptr;
         delete temp;
     }
