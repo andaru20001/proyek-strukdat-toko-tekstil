@@ -60,6 +60,9 @@ int main(){
                     std::cout << "Tenggat   : " << temp->tenggat << '\n';
                 }
                 break;
+            case 4:
+                daftarPesanan(Q);
+                break;
             case 7:
                 ulang = false;
                 break;

@@ -235,3 +235,16 @@ void undo (Stack& S, Queue& Q){
         delete temp;
     }
 }
+
+void daftarPesanan(const Queue& Q){
+    Pointer temp = Q.head;
+    while(temp){
+        int i = 1;
+        std::cout << "Pesanan ke-" << i << '\n';
+        std::cout << "Kode " << temp->kode << '\n';
+        std::cout << "Deskripsi : " << temp->deskripsi << '\n';
+        std::cout << "Tanggal   : " << temp->tglPesan << '\n';
+        std::cout << "Tenggat   : " << temp->tenggat << '\n';
+        temp = temp->next;
+    }
+}
