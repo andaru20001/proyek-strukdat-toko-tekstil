@@ -101,7 +101,7 @@ std::string tambah_digit (int angka, int digitTarget){ //Fungsi untuk mengubah s
     return hasil;
 }
 
-void isi_data(Queue Q, Pointer& Pesanan){ //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
+void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
     //Memasukkan deskipsi pesanan
     std::cout << "Masukkan deskripsi pesanan :\n";
     std::cin >> Pesanan->deskripsi;
@@ -131,16 +131,23 @@ void isi_data(Queue Q, Pointer& Pesanan){ //Fungsi untuk mengisi informasi menge
             }
         }
     }
-    //Format kode = Tanggal pemesanan + Pesanan ke berapa di tanggal itu
-    std::string inputKode = "";
-    inputKode = tambah_digit(Pesanan->tglPesan[0], 2);
-    Pesanan->kode += inputKode;
-    inputKode = tambah_digit(Pesanan->tglPesan[1], 2);
-    Pesanan->kode += inputKode;
-    inputKode = tambah_digit(Pesanan->tglPesan[2] % 100, 2);
-    Pesanan->kode += inputKode;
-    inputKode = tambah_digit(jmlPesananHariIni, 4);
-    Pesanan->kode += inputKode;
+    //Kategori digunakan untuk menentukan apakah fungsi ini digunakan untuk menambah pesanan atau mengedit pesanan
+    //1 = Menambah pesanan
+    //2 = Mengedit pesanan
+
+    if (kategori == 1){
+        //Format kode = Tanggal pemesanan + Pesanan ke berapa di tanggal itu
+        std::string inputKode = "";
+        inputKode = tambah_digit(Pesanan->tglPesan[0], 2);
+        Pesanan->kode += inputKode;
+        inputKode = tambah_digit(Pesanan->tglPesan[1], 2);
+        Pesanan->kode += inputKode;
+        inputKode = tambah_digit(Pesanan->tglPesan[2] % 100, 2);
+        Pesanan->kode += inputKode;
+        inputKode = tambah_digit(jmlPesananHariIni, 4);
+        Pesanan->kode += inputKode;
+    }
+    
 }
 
 void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan ke priority queue. Priority key yang digunakan adalah tanggal tenggat waktu
@@ -152,8 +159,8 @@ void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan k
     else{
         Pointer temp = Q.head;
         Pointer temp2 = nullptr;
-        int check1 = std::stoi(PesananBaru->kode) % 10000; //Mengambil 4 digit paling belakang dari kode pesanan yang akan ditambahkan untuk acuan pesanan ke berapa pada tanggal yang sama
-        int check2;
+        // int check1 = std::stoi(PesananBaru->kode) % 10000; //Mengambil 4 digit paling belakang dari kode pesanan yang akan ditambahkan untuk acuan pesanan ke berapa pada tanggal yang sama
+        // int check2;
 
         while (PesananBaru->tenggat[2] <= temp->tenggat[2] && PesananBaru->tenggat[1] <= temp->tenggat[1] && PesananBaru->tenggat[0] <= temp->tenggat[0]){
             temp2 = temp;
@@ -233,5 +240,11 @@ void undo (Stack& S, Queue& Q){
         prev->next = temp->next;
         temp->next = nullptr;
         delete temp;
+    }
+    else if (S.head->Kategori == "Hapus"){
+
+    }
+    else{
+
     }
 }

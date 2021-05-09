@@ -37,27 +37,28 @@ int main(){
         std::string search;
         Pointer prev, temp;
         switch (kodeProgram){
-            case 1:
+            case 1: //Case Tambah Pesanan
                 Pointer PesananBaru = new Pesanan;
                 buatPesanan(PesananBaru);
-                isi_data(Q, PesananBaru);
+                isi_data(Q, PesananBaru, 1);
                 tambah(Q, PesananBaru);
                 catat_log(S, PesananBaru, 1);
                 break;
-            case 2:
+            case 2: //Case Hapus Pesanan
                 std::cout << "Masukan Kode Pesanan  : ";
                 std::cin >> search;
                 hapusPesanan(Q, search);
                 break;
-            case 3:
+            case 3: //Case Edit Pesanan
                 std::cout << "Masukan Kode Pesanan  : ";
                 std::cin >> search;
                 find(Q, prev, search, temp);
                 if(temp->kode == search){
-                    std::cout << temp->kode << '\n';
-                    std::cout << temp->deskripsi << '\n';
-                    std::cout << "Tanggal   : " << temp->tglPesan << '\n';
-                    std::cout << "Tenggat   : " << temp->tenggat << '\n';
+                    // std::cout << temp->kode << '\n';
+                    // std::cout << temp->deskripsi << '\n';
+                    // std::cout << "Tanggal   : " << temp->tglPesan << '\n';
+                    // std::cout << "Tenggat   : " << temp->tenggat << '\n';
+                    isi_data(Q, temp, 2);
                 }
                 break;
             case 7:
