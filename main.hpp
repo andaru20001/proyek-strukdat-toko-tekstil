@@ -210,18 +210,9 @@ void hapusPesanan(Queue& Q, std::string search){                //menghapus pesa
         return;
     }
     find(Q, previous, search, temp);
-    if(temp == Q.head){                       //kalau pesanannya berada di awal
-        while(previous->next != Q.head){
-            previous = previous->next;
-        }
-        previous->next = Q.head->next;
-        Q.head = previous->next;
-        delete temp;
-    }
-    else if(temp->next = Q.head){            //kalau pesanannya berada di akhir
-        previous->next = temp->next;
+    if (temp == Q.head){                       //kalau pesanannya berada di awal
+        Q.head = Q.head->next;
         temp->next = nullptr;
-        Q.head = previous->next;
         delete temp;
     }
     else{                                    //kalau pesanannya berada di tengah2
