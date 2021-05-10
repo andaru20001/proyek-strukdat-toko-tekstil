@@ -247,3 +247,13 @@ void daftarPesanan(const Queue& Q){
         temp = temp->next;
     }
 }
+
+void Search(Queue& Q, std::string search){                       //nambahin fungsi search untuk display value dari pesanan yang dicari
+    Pointer previous;
+    Pointer temp;
+    find(Q, previous, search, temp);
+    std::cout << "Kode " << temp->kode << '\n';
+    std::cout << "Deskripsi : " << temp->deskripsi << '\n';
+    std::cout << "Tanggal   : " << temp->tglPesan << '\n';
+    std::cout << "Tenggat   : " << temp->tenggat << '\n';
+}

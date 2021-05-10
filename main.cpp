@@ -61,13 +61,15 @@ int main(){
                     isi_data(Q, temp, 2);
                 }
                 break;
-            case 4:
+            case 4:  //case daftar pesanan
                 daftarPesanan(Q);
                 break;
-            case 7:
-                ulang = false;
+            case 5:  //case search (display value dari pesanan yang ingin dicari)
+                std::cout << "Masukan Kode Pesanan  : ";
+                std::cin >> search;
+                Search(Q, search);
                 break;
-            case 8:
+            case 6:
                 ulang = false;
                 break;
         }
