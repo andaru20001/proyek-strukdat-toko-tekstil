@@ -107,7 +107,7 @@ void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi i
     std::cin >> Pesanan->deskripsi;
 
     //Memasukkan tanggal pesanan masuk
-    std::cout << "Masukkan tanggal kapan pesanan masuk :\n";
+    std::cout << "Masukkan tanggal kapan pesanan masuk (format DD/MM/YYYY, masing-masing dipisah dengan Enter atau Space):\n";
     for (int i=0; i<3; i++){
         std::cin >> Pesanan->tglPesan[i];
     }
@@ -119,9 +119,9 @@ void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi i
     }
 
     //Blok kode untuk generate kode pesanan
-    int jmlPesananHariIni = 0;
+    int jmlPesananHariIni = 1;
     if (QueueisEmpty(Q)){
-        jmlPesananHariIni = 0;
+        jmlPesananHariIni = 1;
     }
     else{
         Pointer temp = Q.head;
@@ -162,7 +162,19 @@ void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan k
         // int check1 = std::stoi(PesananBaru->kode) % 10000; //Mengambil 4 digit paling belakang dari kode pesanan yang akan ditambahkan untuk acuan pesanan ke berapa pada tanggal yang sama
         // int check2;
 
-        while (PesananBaru->tenggat[2] <= temp->tenggat[2] && PesananBaru->tenggat[1] <= temp->tenggat[1] && PesananBaru->tenggat[0] <= temp->tenggat[0]){
+        while (1){
+            if (temp == nullptr){
+                break;
+            }
+            
+            if (PesananBaru->tenggat[2] >= temp->tenggat[2]){
+                if (PesananBaru->tenggat[1] >= temp->tenggat[1]){
+                    if (PesananBaru->tenggat[0] >= temp->tenggat[0]){
+                        break;
+                    }
+                }
+            }
+
             temp2 = temp;
             temp = temp->next;
         }
@@ -242,8 +254,8 @@ void daftarPesanan(const Queue& Q){
         std::cout << "Pesanan ke-" << i << '\n';
         std::cout << "Kode " << temp->kode << '\n';
         std::cout << "Deskripsi : " << temp->deskripsi << '\n';
-        std::cout << "Tanggal   : " << temp->tglPesan << '\n';
-        std::cout << "Tenggat   : " << temp->tenggat << '\n';
+        std::cout << "Tanggal   : " << temp->tglPesan[0] << " " << temp->tglPesan[1] << " " << temp->tglPesan[2] << '\n';
+        std::cout << "Tenggat   : " << temp->tenggat[0] << " " << temp->tenggat[1] << " " << temp->tenggat[2] << '\n';
         temp = temp->next;
     }
 }
@@ -254,6 +266,6 @@ void Search(Queue& Q, std::string search){                       //nambahin fung
     find(Q, previous, search, temp);
     std::cout << "Kode " << temp->kode << '\n';
     std::cout << "Deskripsi : " << temp->deskripsi << '\n';
-    std::cout << "Tanggal   : " << temp->tglPesan << '\n';
-    std::cout << "Tenggat   : " << temp->tenggat << '\n';
+    std::cout << "Tanggal   : " << temp->tglPesan[0] << " " << temp->tglPesan[1] << " " << temp->tglPesan[2] << '\n';
+    std::cout << "Tenggat   : " << temp->tenggat[0] << " " << temp->tenggat[1] << " " << temp->tenggat[2] << '\n';
 }

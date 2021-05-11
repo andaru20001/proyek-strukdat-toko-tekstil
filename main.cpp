@@ -18,7 +18,7 @@ int main(){
     bool ulang = true;
     while(ulang){
         std::cout << "PROGRAM SISTEM ANTRIAN PEMESANAN TOKO TEKSTIL\n";
-        std::cout << "1. Tambah Pesanan\n2. Hapus Pesanan\n3. Search\n 4. Daftar Pesanan\n5. Edit Pesanan\n6. Undo\n7. Save & Exit\n8. Exit without Saving\n";
+        std::cout << "1. Tambah Pesanan\n2. Hapus Pesanan\n3. Search\n4. Daftar Pesanan\n5. Edit Pesanan\n6. Undo\n7. Save & Exit\n8. Exit without Saving\n";
 
         // Tampilkan kode-kode untuk masuk ke salah satu programnya. 
         // Sesuaikan saja dengan urutan yang ada di README.md :
@@ -36,9 +36,10 @@ int main(){
         // Untuk variabel kode untuk pilih programnya disepakati aja kali ya, jadi "kodeProgram"
         std::string search;
         Pointer prev, temp;
+        Pointer PesananBaru = new Pesanan;
         switch (kodeProgram){
             case 1: //Case Tambah Pesanan
-                Pointer PesananBaru = new Pesanan;
+                
                 buatPesanan(PesananBaru);
                 isi_data(Q, PesananBaru, 1);
                 tambah(Q, PesananBaru);
