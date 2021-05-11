@@ -38,19 +38,27 @@ int main(){
         Pointer prev, temp;
         Pointer PesananBaru = new Pesanan;
         switch (kodeProgram){
-            case 1: //Case Tambah Pesanan
-                
+            case 1: {//Case Tambah Pesanan
+                Pointer PesananBaru = new Pesanan;
                 buatPesanan(PesananBaru);
                 isi_data(Q, PesananBaru, 1);
                 tambah(Q, PesananBaru);
                 catat_log(S, PesananBaru, 1);
-                break;
-            case 2: //Case Hapus Pesanan
+                break;}
+            case 2: {//Case Hapus Pesanan
                 std::cout << "Masukan Kode Pesanan  : ";
                 std::cin >> search;
                 hapusPesanan(Q, search);
-                break;
-            case 3: //Case Edit Pesanan
+                break;}
+            case 3: {//case search (display value dari pesanan yang ingin dicari)
+                std::cout << "Masukan Kode Pesanan  : ";
+                std::cin >> search;
+                Search(Q, search);
+                break;}
+            case 4:  {//case daftar pesanan
+                daftarPesanan(Q);
+                break;}
+            case 5:  {//Case Edit Pesanan
                 std::cout << "Masukan Kode Pesanan  : ";
                 std::cin >> search;
                 find(Q, prev, search, temp);
@@ -61,18 +69,11 @@ int main(){
                     // std::cout << "Tenggat   : " << temp->tenggat << '\n';
                     isi_data(Q, temp, 2);
                 }
-                break;
-            case 4:  //case daftar pesanan
-                daftarPesanan(Q);
-                break;
-            case 5:  //case search (display value dari pesanan yang ingin dicari)
-                std::cout << "Masukan Kode Pesanan  : ";
-                std::cin >> search;
-                Search(Q, search);
-                break;
-            case 6:
+                break;}
+            case 6:{
                 ulang = false;
-                break;
+                break;}
         }
     }
 }
+
