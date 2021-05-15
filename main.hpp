@@ -247,29 +247,54 @@ void rearrange(Queue& Q, Pointer& prev, Pointer& Pesanan){ //Fungsi untuk melaku
 void hapusPesanan(Queue& Q, std::string search){                //menghapus pesanan yang diinginkan
     Pointer temp;
     Pointer previous;
+    int pilihan;
     if(Q.head == nullptr){
         std::cout<<"Daftar pesanan kosong\n";
         return;
     }
-    find(Q, previous, search, temp);
-    if (temp->next == nullptr && Q.head == nullptr){  // jika hanya satu
-        Q.head = nullptr;
-        Q.tail = nullptr;
-        temp = nullptr;
-    }
-    else if (temp == Q.head){                       //kalau pesanannya berada di awal
-        Q.head = Q.head->next;
-        temp->next = nullptr;
-        delete temp;
-    }
-    else if(temp->next == nullptr){               //diakhir
-        previous->next = nullptr;
-        delete temp;
-    }
-    else{                                    //kalau pesanannya berada di tengah2
-        previous->next = temp->next;
-        temp->next = nullptr;
-        delete temp;
+    std::cout<<"Option Penghapusan : \n1. Hapus Priority Tertinggi\n2. Hapus Pesanan by Search\nPilihan :";
+    std::cin>>pilihan;
+
+    switch(pilihan){
+        case 2:{
+            find(Q, previous, search, temp);
+            if (temp->next == nullptr && Q.head == nullptr){  // jika hanya satu
+            Q.head = nullptr;
+            Q.tail = nullptr;
+            temp = nullptr;
+            }
+            else if (temp == Q.head){                       //kalau pesanannya berada di awal
+            Q.head = Q.head->next;
+            temp->next = nullptr;
+            delete temp;
+            }
+            else if(temp->next == nullptr){               //diakhir
+            previous->next = nullptr;
+            delete temp;
+            }
+            else{                                    //kalau pesanannya berada di tengah2
+            previous->next = temp->next;
+            temp->next = nullptr;
+            delete temp;
+            }    
+            break;
+        }
+        case 1 :{
+            Pointer temp = nullptr;
+            if(Q.head->next == nullptr){
+                temp = Q.head;
+                Q.head = nullptr;
+                Q.tail = nullptr;
+                delete temp;
+            }
+            else {
+                temp = Q.head;
+                Q.head = Q.head->next;
+                temp->next = nullptr;
+                delete temp;
+            }
+            break;
+        }
     }
 }
 
