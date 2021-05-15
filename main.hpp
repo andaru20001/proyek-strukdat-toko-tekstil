@@ -17,9 +17,10 @@ struct Queue{
 };
 
 struct DataStack{
-    std::string dataTarget;
+    Pointer dataTarget;
     std::string Kategori;
     DataStack* next;
+    DataStack* prev;
 };
 
 typedef DataStack* PointerData;
@@ -28,6 +29,13 @@ struct Stack{
     PointerData head;
     PointerData tail;
 };
+
+void buatStackData (PointerData& DS){
+    DS->dataTarget = nullptr;
+    DS->Kategori = "";
+    DS->next = nullptr;
+    DS->prev = nullptr;
+}
 
 void buatQueue(Queue& Q){ //Fungsi untuk memasukkan default value ke Queue
     Q.head = nullptr;
@@ -46,33 +54,16 @@ bool QueueisEmpty(Queue& Q){ //Fungsi untuk mengecek apakah Queue kosong
     return 0;
 }
 
-void pushStack(Stack& S, PointerData InputData) {
+void pushStack(Stack& S, PointerData InputData) { // Fungsi untuk memasukkan data undo ke dalam stack
   if (S.head == nullptr){
     S.head = InputData;
+    S.tail = InputData;
   }
   else{
     InputData->next = S.head;
+    S.head->prev = InputData;
     S.head = InputData;
   }
-}
-
-void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){ //Fungsi untuk mencatat perubahan ke stack. Harus dimasukkan ke fungsi-fungsi yang melakukan perubahan data
-    // Kategori diisi sesuai dengan program apa yang dijalankan sebelumnya
-    // 1 = tambah
-    // 2 = hapus
-    // 3 = edit
-
-    PointerData newData = new DataStack;
-    // Bagian tambah
-    if (Kategori == 1){
-        newData->dataTarget = InputPesanan->kode;
-        newData->Kategori = "Tambah";
-        pushStack(S, newData);
-    }
-    //Bagian hapus
-    else if (Kategori == 2){
-
-    }
 }
 
 void buatPesanan(Pointer& PesananBaru){ //Fungsi untuk memasukkan default value ke Pointer PesananBaru
@@ -85,6 +76,43 @@ void buatPesanan(Pointer& PesananBaru){ //Fungsi untuk memasukkan default value 
         PesananBaru->tglPesan[i] = 0;
     }
     PesananBaru->next = nullptr;
+}
+
+void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){ //Fungsi untuk mencatat perubahan ke stack. Harus dimasukkan ke fungsi-fungsi yang melakukan perubahan data
+    // Kategori diisi sesuai dengan program apa yang dijalankan sebelumnya
+    // 1 = tambah
+    // 2 = hapus
+    // 3 = edit
+
+    PointerData newData = new DataStack;
+    Pointer backup = new Pesanan; //Backup data yang ingin dihapus atau diedit ke dalam pointer ini
+    buatStackData(newData);
+    // Bagian tambah
+    if (Kategori == 1){
+        newData->dataTarget = InputPesanan;
+        newData->Kategori = "Tambah";
+    }
+    //Bagian hapus
+    else if (Kategori == 2 || Kategori == 3){
+        buatPesanan(backup);
+        backup->deskripsi = InputPesanan->deskripsi;
+        backup->kode = InputPesanan->kode;
+        for (int i=0; i<3; i++){
+            backup->tenggat[i] = InputPesanan->tenggat[i];
+        }
+        for (int i=0; i<3; i++){
+            backup->tglPesan[i] = InputPesanan->tglPesan[i];
+        }
+        backup->next = nullptr;
+        newData->dataTarget = backup;
+        if (Kategori == 2){
+            newData->Kategori = "Hapus";
+        }
+        else if (Kategori == 3){
+            newData->Kategori = "Edit";
+        }
+    }
+    pushStack(S, newData);
 }
 
 std::string tambah_digit (int angka, int digitTarget){ //Fungsi untuk mengubah sebuah integer dengan digit tertentu menjadi string dengan jumlah digit yang diinginkan dengan menambahkan leading zero
@@ -108,7 +136,7 @@ std::string tambah_digit (int angka, int digitTarget){ //Fungsi untuk mengubah s
     return hasil;
 }
 
-void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
+void isi_data(Queue Q, Pointer& Pesanan){ //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
     //Memasukkan deskipsi pesanan
     std::cout << "Masukkan deskripsi pesanan :\n";
     std::getline(std::cin >> std::ws,Pesanan->deskripsi);
@@ -147,19 +175,16 @@ void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi i
     //1 = Menambah pesanan
     //2 = Mengedit pesanan
 
-    if (kategori == 1){
-        //Format kode = Tanggal pemesanan + Pesanan ke berapa di tanggal itu
-        std::string inputKode = "";
-        inputKode = tambah_digit(Pesanan->tglPesan[0], 2);
-        Pesanan->kode += inputKode;
-        inputKode = tambah_digit(Pesanan->tglPesan[1], 2);
-        Pesanan->kode += inputKode;
-        inputKode = tambah_digit(Pesanan->tglPesan[2] % 100, 2);
-        Pesanan->kode += inputKode;
-        inputKode = tambah_digit(jmlPesananHariIni, 4);
-        Pesanan->kode += inputKode;
-    }
-    
+    //Format kode = Tanggal pemesanan + Pesanan ke berapa di tanggal itu
+    std::string inputKode = "";
+    inputKode = tambah_digit(Pesanan->tglPesan[0], 2);
+    Pesanan->kode += inputKode;
+    inputKode = tambah_digit(Pesanan->tglPesan[1], 2);
+    Pesanan->kode += inputKode;
+    inputKode = tambah_digit(Pesanan->tglPesan[2] % 100, 2);
+    Pesanan->kode += inputKode;
+    inputKode = tambah_digit(jmlPesananHariIni, 4);
+    Pesanan->kode += inputKode;
 }
 
 void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan ke priority queue. Priority key yang digunakan adalah tanggal tenggat waktu; Bisa digunakan untuk menyusun kembali data yang sudah diedit
@@ -197,7 +222,7 @@ void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan k
     }
 }
 
-void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) {
+void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) { //Fungsi untuk mencari data menggunakan kode pesanan
   temp = Q.head;
   previous = nullptr;
   while (temp->kode != search){
@@ -211,17 +236,19 @@ void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) {
 
 void rearrange(Queue& Q, Pointer& prev, Pointer& Pesanan){ //Fungsi untuk melakukan susun ulang data yang diedit sesuai dengan tenggat baru
     //Pemisahan data dengan queue
-    prev->next = Pesanan->next;
-    Pesanan->next = nullptr;
+    if (Q.head->next != nullptr){
+        prev->next = Pesanan->next;
+        Pesanan->next = nullptr;
 
-    tambah(Q, Pesanan); //Fungsi tambah dapat kembali digunakan untuk menyusun kembali priority queue sesuai dengan tenggat yang baru
+        tambah(Q, Pesanan); //Fungsi tambah dapat kembali digunakan untuk menyusun kembali priority queue sesuai dengan tenggat yang baru
+    }
 }
 
 void hapusPesanan(Queue& Q, std::string search){                //menghapus pesanan yang diinginkan
     Pointer temp;
     Pointer previous;
     if(Q.head == nullptr){
-        std::cout<<"pesanan kosong"<<"\n";
+        std::cout<<"Daftar pesanan kosong\n";
         return;
     }
     find(Q, previous, search, temp);
@@ -246,29 +273,49 @@ void hapusPesanan(Queue& Q, std::string search){                //menghapus pesa
     }
 }
 
-void undo (Stack& S, Queue& Q){
+void undo (Stack& S, Queue& Q){ //Fungsi untuk melakukan operasi undo
     Pointer prev = nullptr;
     Pointer temp = nullptr;
-    find(Q, prev, S.head->dataTarget, temp);
 
     if (S.head->Kategori == "Tambah"){
-        prev->next = temp->next;
-        temp->next = nullptr;
-        delete temp;
+        hapusPesanan(Q, S.head->dataTarget->kode);
+    }
+    else if (S.head->Kategori == "Hapus"){
+        tambah(Q, S.head->dataTarget);
+    }
+    else{
+        find(Q, prev, S.head->dataTarget->kode, temp);
+        temp->deskripsi = S.head->dataTarget->deskripsi;
+        temp->kode = S.head->dataTarget->kode;
+        for (int i=0; i<3; i++){
+            temp->tenggat[i] = S.head->dataTarget->tenggat[i];
+        }
+        for (int i=0; i<3; i++){
+            temp->tglPesan[i] = S.head->dataTarget->tglPesan[i];
+        }
     }
 }
 
-void daftarPesanan(const Queue& Q){
-    Pointer temp = Q.head;
-    while(temp){
-        int i = 1;
-        std::cout << "Pesanan ke-" << i << '\n';
-        std::cout << "Kode " << temp->kode << '\n';
-        std::cout << "Deskripsi : " << temp->deskripsi << '\n';
-        std::cout << "Tanggal   : " << temp->tglPesan[0] << " " << temp->tglPesan[1] << " " << temp->tglPesan[2] << '\n';
-        std::cout << "Tenggat   : " << temp->tenggat[0] << " " << temp->tenggat[1] << " " << temp->tenggat[2] << '\n';
-        i++;
-        temp = temp->next;
+void cetak_data(Pointer Pesanan){//Fungsi untuk mencetak sebuah pointer pesanan
+    std::cout << "Kode " << Pesanan->kode << '\n';
+    std::cout << "Deskripsi : " << Pesanan->deskripsi << '\n';
+    std::cout << "Tanggal   : " << Pesanan->tglPesan[0] << "/" << Pesanan->tglPesan[1] << "/" << Pesanan->tglPesan[2] << '\n';
+    std::cout << "Tenggat   : " << Pesanan->tenggat[0] << "/" << Pesanan->tenggat[1] << "/" << Pesanan->tenggat[2] << '\n';
+}
+
+void daftarPesanan(Queue Q){                             //Fungsi untuk mencetak pesanan-pesanan yang ada
+    if (QueueisEmpty(Q)){
+        std::cout << "Daftar pesanan kosong\n";
+    }
+    else{
+        Pointer temp = Q.head;
+        while(temp){
+            int i = 1;
+            std::cout << "Pesanan ke-" << i << '\n';
+            cetak_data(temp);
+            i++;
+            temp = temp->next;
+        }
     }
 }
 
@@ -276,8 +323,23 @@ void Search(Queue& Q, std::string search){                       //nambahin fung
     Pointer previous;
     Pointer temp;
     find(Q, previous, search, temp);
-    std::cout << "Kode " << temp->kode << '\n';
-    std::cout << "Deskripsi : " << temp->deskripsi << '\n';
-    std::cout << "Tanggal   : " << temp->tglPesan[0] << " " << temp->tglPesan[1] << " " << temp->tglPesan[2] << '\n';
-    std::cout << "Tenggat   : " << temp->tenggat[0] << " " << temp->tenggat[1] << " " << temp->tenggat[2] << '\n';
+    cetak_data(temp);
+}
+
+void clrscr(){                                                   //Fungsi clear screen dengan mencetak new line sebanyak 60 kali
+    for (int i=1; i<=60; i++){
+        std::cout << "\n";
+    }
+}
+
+void title(std::string text){
+    int panjang = text.length();
+    for (int i=1; i<=panjang; i++){
+        std::cout << "=";
+    }
+    std::cout << "\n" << text << "\n";
+    for (int i=1; i<=panjang; i++){
+        std::cout << "=";
+    }
+    std::cout << "\n\n";
 }

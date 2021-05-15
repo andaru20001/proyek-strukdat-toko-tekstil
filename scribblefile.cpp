@@ -12,14 +12,14 @@ int main(){
     
     buatPesanan(PesananBaru);
     std::cout << "CHECK 1\n";
-    isi_data(Q, PesananBaru, 1);
+    isi_data(Q, PesananBaru);
     std::cout << "CHECK 2\n";
     tambah(Q, PesananBaru);
     std::cout << "CHECK 3\n";
 
     buatPesanan(PesananBaru2);
     std::cout << "CHECK 4\n";
-    isi_data(Q, PesananBaru2, 1);
+    isi_data(Q, PesananBaru2);
     std::cout << "CHECK 5\n";
     tambah(Q, PesananBaru2);
     std::cout << "CHECK 6\n";
