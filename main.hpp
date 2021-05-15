@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <fstream>
 
 struct Pesanan{
     std::string kode;
@@ -37,24 +38,24 @@ void buatStackData (PointerData& DS){
     DS->prev = nullptr;
 }
 
-void buatQueue(Queue& Q){ //Fungsi untuk memasukkan default value ke Queue
+void buatQueue(Queue& Q){                                       //Fungsi untuk memasukkan default value ke Queue
     Q.head = nullptr;
     Q.tail = nullptr;
 }
 
-void buatStack(Stack& S){ //Fungsi untuk memasukkan default value ke Stack
+void buatStack(Stack& S){                                       //Fungsi untuk memasukkan default value ke Stack
     S.head = nullptr;
     S.tail = nullptr;
 }
 
-bool QueueisEmpty(Queue& Q){ //Fungsi untuk mengecek apakah Queue kosong
+bool QueueisEmpty(Queue& Q){                                    //Fungsi untuk mengecek apakah Queue kosong
     if (Q.head == nullptr){
         return 1;
     }
     return 0;
 }
 
-void pushStack(Stack& S, PointerData InputData) { // Fungsi untuk memasukkan data undo ke dalam stack
+void pushStack(Stack& S, PointerData InputData) {               // Fungsi untuk memasukkan data undo ke dalam stack
   if (S.head == nullptr){
     S.head = InputData;
     S.tail = InputData;
@@ -66,7 +67,7 @@ void pushStack(Stack& S, PointerData InputData) { // Fungsi untuk memasukkan dat
   }
 }
 
-void buatPesanan(Pointer& PesananBaru){ //Fungsi untuk memasukkan default value ke Pointer PesananBaru
+void buatPesanan(Pointer& PesananBaru){                         //Fungsi untuk memasukkan default value ke Pointer PesananBaru
     PesananBaru->kode = "";
     PesananBaru->deskripsi = "";
     for (int i=1; i<3; i++){
@@ -78,14 +79,14 @@ void buatPesanan(Pointer& PesananBaru){ //Fungsi untuk memasukkan default value 
     PesananBaru->next = nullptr;
 }
 
-void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){ //Fungsi untuk mencatat perubahan ke stack. Harus dimasukkan ke fungsi-fungsi yang melakukan perubahan data
+void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){  //Fungsi untuk mencatat perubahan ke stack. Harus dimasukkan ke fungsi-fungsi yang melakukan perubahan data
     // Kategori diisi sesuai dengan program apa yang dijalankan sebelumnya
     // 1 = tambah
     // 2 = hapus
     // 3 = edit
 
     PointerData newData = new DataStack;
-    Pointer backup = new Pesanan; //Backup data yang ingin dihapus atau diedit ke dalam pointer ini
+    Pointer backup = new Pesanan;                       //Backup data yang ingin dihapus atau diedit ke dalam pointer ini
     buatStackData(newData);
     // Bagian tambah
     if (Kategori == 1){
@@ -115,7 +116,7 @@ void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){ //Fungsi untuk me
     pushStack(S, newData);
 }
 
-std::string tambah_digit (int angka, int digitTarget){ //Fungsi untuk mengubah sebuah integer dengan digit tertentu menjadi string dengan jumlah digit yang diinginkan dengan menambahkan leading zero
+std::string tambah_digit (int angka, int digitTarget){          //Fungsi untuk mengubah sebuah integer dengan digit tertentu menjadi string dengan jumlah digit yang diinginkan dengan menambahkan leading zero
     std::string hasil = "";
     int digitAngka = 1;
     int pembagi = 10;
@@ -136,7 +137,7 @@ std::string tambah_digit (int angka, int digitTarget){ //Fungsi untuk mengubah s
     return hasil;
 }
 
-void isi_data(Queue Q, Pointer& Pesanan){ //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
+void isi_data(Queue Q, Pointer& Pesanan){                       //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
     //Memasukkan deskipsi pesanan
     std::cout << "Masukkan deskripsi pesanan :\n";
     std::getline(std::cin >> std::ws,Pesanan->deskripsi);
@@ -187,7 +188,7 @@ void isi_data(Queue Q, Pointer& Pesanan){ //Fungsi untuk mengisi informasi menge
     Pesanan->kode += inputKode;
 }
 
-void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan ke priority queue. Priority key yang digunakan adalah tanggal tenggat waktu; Bisa digunakan untuk menyusun kembali data yang sudah diedit
+void tambah(Queue& Q, Pointer& PesananBaru){                    //Fungsi untuk memasukkan pesanan ke priority queue. Priority key yang digunakan adalah tanggal tenggat waktu; Bisa digunakan untuk menyusun kembali data yang sudah diedit
     if (QueueisEmpty(Q)){
         Q.head = PesananBaru;
         Q.tail = PesananBaru;
@@ -199,24 +200,21 @@ void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan k
         // int check1;
         // int check2;
 
-        while (PesananBaru->tenggat[2] >= temp->tenggat[2] && PesananBaru->tenggat[1] >= temp->tenggat[1] && PesananBaru->tenggat[0] >= temp->tenggat[0]){
-            if (temp == nullptr){
-                break;
-            }
+        while (temp != nullptr && PesananBaru->tenggat[2] >= temp->tenggat[2] && PesananBaru->tenggat[1] >= temp->tenggat[1] && PesananBaru->tenggat[0] >= temp->tenggat[0]){
             temp2 = temp;
             temp = temp->next;
         }
     
-        if (temp2 == nullptr){ //Jika posisi ditemukan di awal Queue
+        if (temp2 == nullptr){                          //Jika posisi ditemukan di awal Queue
             Q.head = PesananBaru;
             PesananBaru->next = temp;
         }
-        else if (temp == nullptr){ //Jika posisi ditemukan di akhir Queue
+        else if (temp == nullptr){                      //Jika posisi ditemukan di akhir Queue
             Q.tail = PesananBaru;
             temp2->next = PesananBaru;
         }
         else{
-            PesananBaru->next = temp; //Jika posisi ditemukan di tengah-tengah Queue
+            PesananBaru->next = temp;                   //Jika posisi ditemukan di tengah-tengah Queue
             temp2->next = PesananBaru;
         }
     }
@@ -234,13 +232,13 @@ void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) { //Fu
   }
 }
 
-void rearrange(Queue& Q, Pointer& prev, Pointer& Pesanan){ //Fungsi untuk melakukan susun ulang data yang diedit sesuai dengan tenggat baru
+void rearrange(Queue& Q, Pointer& prev, Pointer& Pesanan){      //Fungsi untuk melakukan susun ulang data yang diedit sesuai dengan tenggat baru
     //Pemisahan data dengan queue
     if (Q.head->next != nullptr){
         prev->next = Pesanan->next;
         Pesanan->next = nullptr;
 
-        tambah(Q, Pesanan); //Fungsi tambah dapat kembali digunakan untuk menyusun kembali priority queue sesuai dengan tenggat yang baru
+        tambah(Q, Pesanan);                             //Fungsi tambah dapat kembali digunakan untuk menyusun kembali priority queue sesuai dengan tenggat yang baru
     }
 }
 
@@ -252,28 +250,28 @@ void hapusPesanan(Queue& Q, std::string search){                //menghapus pesa
         return;
     }
     find(Q, previous, search, temp);
-    if (temp->next == nullptr && Q.head == nullptr){  // jika hanya satu
+    if (temp->next == nullptr && Q.head == nullptr){    // jika hanya satu
         Q.head = nullptr;
         Q.tail = nullptr;
         temp = nullptr;
     }
-    else if (temp == Q.head){                       //kalau pesanannya berada di awal
+    else if (temp == Q.head){                           //kalau pesanannya berada di awal
         Q.head = Q.head->next;
         temp->next = nullptr;
         delete temp;
     }
-    else if(temp->next == nullptr){               //diakhir
+    else if(temp->next == nullptr){                     //diakhir
         previous->next = nullptr;
         delete temp;
     }
-    else{                                    //kalau pesanannya berada di tengah2
+    else{                                               //kalau pesanannya berada di tengah2
         previous->next = temp->next;
         temp->next = nullptr;
         delete temp;
     }
 }
 
-void undo (Stack& S, Queue& Q){ //Fungsi untuk melakukan operasi undo
+void undo (Stack& S, Queue& Q){                                 //Fungsi untuk melakukan operasi undo
     Pointer prev = nullptr;
     Pointer temp = nullptr;
 
@@ -296,21 +294,21 @@ void undo (Stack& S, Queue& Q){ //Fungsi untuk melakukan operasi undo
     }
 }
 
-void cetak_data(Pointer Pesanan){//Fungsi untuk mencetak sebuah pointer pesanan
+void cetak_data(Pointer Pesanan){                               //Fungsi untuk mencetak sebuah pointer pesanan
     std::cout << "Kode " << Pesanan->kode << '\n';
     std::cout << "Deskripsi : " << Pesanan->deskripsi << '\n';
     std::cout << "Tanggal   : " << Pesanan->tglPesan[0] << "/" << Pesanan->tglPesan[1] << "/" << Pesanan->tglPesan[2] << '\n';
     std::cout << "Tenggat   : " << Pesanan->tenggat[0] << "/" << Pesanan->tenggat[1] << "/" << Pesanan->tenggat[2] << '\n';
 }
 
-void daftarPesanan(Queue Q){                             //Fungsi untuk mencetak pesanan-pesanan yang ada
+void daftarPesanan(Queue Q){                                    //Fungsi untuk mencetak pesanan-pesanan yang ada
     if (QueueisEmpty(Q)){
         std::cout << "Daftar pesanan kosong\n";
     }
     else{
         Pointer temp = Q.head;
-        while(temp){
-            int i = 1;
+        int i = 1;
+        while(temp){    
             std::cout << "Pesanan ke-" << i << '\n';
             cetak_data(temp);
             i++;
@@ -332,7 +330,7 @@ void clrscr(){                                                   //Fungsi clear 
     }
 }
 
-void title(std::string text){
+void title(std::string text){                                   //Fungsi untuk mencetak judul dari sebuah fungsi/program utama
     int panjang = text.length();
     for (int i=1; i<=panjang; i++){
         std::cout << "=";
@@ -342,4 +340,98 @@ void title(std::string text){
         std::cout << "=";
     }
     std::cout << "\n\n";
+}
+
+void save_data(Queue& Q){                                       //Fungsi untuk melakukan save data ke dalam file data.txt supaya bisa diakses kembali ketika membuka program
+    std::ofstream data;
+    Pointer temp = Q.head;
+    data.open("data.txt", std::ios::out | std::ios::trunc);
+
+    while(temp != nullptr){
+        data << temp->kode << "\n";
+        data << temp->deskripsi << "\n";
+        for (int i=0; i<3; i++){
+            if (i == 2){
+                data << temp->tglPesan[i] << "\n";
+            }
+            else{
+                data << temp->tglPesan[i] << " ";
+            }
+        }
+        for (int i=0; i<3; i++){
+            if (i == 2){
+                data << temp->tenggat[i];
+            }
+            else{
+                data << temp->tenggat[i] << " ";
+            }
+        }
+
+        if (temp->next != nullptr){
+            data << "\n";
+        }
+        temp = temp->next;
+    }
+    data.close();
+}
+
+void save_log(Stack& S){                                        //Fungsi untuk mencatat perubahan yang terjadi di dalam program ke dalam file log.txt
+    std::ofstream log;
+    PointerData temp = S.tail;
+    log.open("log.txt", std::ios::out | std::ios::app);
+
+    while(temp != nullptr){
+        log << "Melakukan " << temp->Kategori << " pada pesanan dengan kode " << temp->dataTarget->kode << "\n";
+        temp = temp->prev;
+    }
+    log.close();
+}
+
+bool cek_file(){                                                //Fungsi untuk mengecek apakah file data (data.txt) sudah ada atau belum
+    std::ifstream data;
+    data.open("data.txt");
+    if (data){
+        return 1;
+    }
+    return 0;
+}
+
+void load_data(Queue& Q){                                       //Fungsi untuk load data dari file data.txt
+    Pointer DataPesanan = nullptr;
+    std::ifstream data;
+    std::string temp;
+    int convert;
+    bool first = 1;
+    data.open("data.txt");
+    while (!data.eof()){
+        DataPesanan = new Pesanan;
+        buatPesanan(DataPesanan);
+        if (first != 1){
+            std::getline(data, temp);
+        }
+        std::getline(data, temp);                       
+        if (temp == ""){                                //Jika data.txt kosong, loop diberhentikan dan fungsi load_data() dihentikan/tidak load data apapun dari data.txt
+            break;
+        }
+        DataPesanan->kode = temp;
+        std::getline(data, temp);
+        DataPesanan->deskripsi = temp;
+        temp = "";
+        convert = 0;
+        for (int i=0; i<3; i++){
+            data >> temp;
+            convert = std::stoi(temp);
+            DataPesanan->tglPesan[i] = convert;
+        }
+        temp = "";
+        convert = 0;
+        for (int i=0; i<3; i++){
+            data >> temp;
+            convert = std::stoi(temp);
+            DataPesanan->tenggat[i] = convert;
+        }
+        tambah(Q, DataPesanan);
+        first = 0;
+    }
+    data.close();
 }

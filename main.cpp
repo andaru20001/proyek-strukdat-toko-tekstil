@@ -6,21 +6,26 @@ int main(){
     // Menu isinya header (Nama programnya, dibingkai juga boleh),
     
     
-    // Inisialisasi queue sama stack,
+    // Inisialisasi variable, pointer, queue sama stack,
     int kodeProgram = 0;
     Stack S;
     buatStack(S);
     Queue Q;
     buatQueue(Q);
-
-    // Backup data yang sudah disimpan,
+    
     std::string search;
     Pointer prev, temp;
     Pointer PesananBaru = new Pesanan;
+    
+    // Backup data yang sudah disimpan,
+    bool cek = cek_file();
+    if (cek){
+        load_data(Q);
+    }
 
     bool ulang = true;
     while(ulang){
-        //clrscr();
+        clrscr();
         title("PROGRAM SISTEM ANTRIAN PEMESANAN TOKO TEKSTIL");
         std::cout << "1. Tambah Pesanan\n2. Hapus Pesanan\n3. Search\n4. Daftar Pesanan\n5. Edit Pesanan\n6. Undo\n7. Save & Exit\n8. Exit without Saving\n";
 
@@ -41,7 +46,7 @@ int main(){
         
         switch (kodeProgram){
             case 1: {//Case Tambah Pesanan
-                //clrscr();
+                clrscr();
                 title("TAMBAH PESANAN");
 
                 PesananBaru = new Pesanan;
@@ -51,7 +56,7 @@ int main(){
                 catat_log(S, PesananBaru, 1);
                 break;}
             case 2: {//Case Hapus Pesanan
-                //clrscr();
+                clrscr();
                 title("HAPUS PESANAN");
                 
                 std::cout << "Masukan Kode Pesanan  : ";
@@ -61,7 +66,7 @@ int main(){
                 hapusPesanan(Q, search);
                 break;}
             case 3: {//case search (display value dari pesanan yang ingin dicari)
-                //clrscr();
+                clrscr();
                 title("CARI PESANAN");
 
                 std::cout << "Masukan Kode Pesanan  : ";
@@ -69,7 +74,7 @@ int main(){
                 Search(Q, search);
                 break;}
             case 4:  {//case daftar pesanan
-                //clrscr();
+                clrscr();
                 title("DAFTAR PESANAN");
 
                 daftarPesanan(Q);
@@ -78,7 +83,7 @@ int main(){
                 std::cin.get();
                 break;}
             case 5:  {//Case Edit Pesanan
-                //clrscr();
+                clrscr();
                 title("EDIT PESANAN");
 
                 std::cout << "Masukan Kode Pesanan  : ";
@@ -86,15 +91,12 @@ int main(){
                 find(Q, prev, search, temp);
                 if(temp->kode == search){
                     catat_log(S, temp, 3);
-                    std::cout << "CHECK 1\n";
                     isi_data(Q, temp);
-                    std::cout << "CHECK 2\n";
                     rearrange(Q, prev, temp);
-                    std::cout << "CHECK 3\n";
                 }
                 break;}
             case 6:{
-                //clrscr();
+                clrscr();
                 title("UNDO PERUBAHAN");
 
                 cetak_data(S.head->dataTarget);
@@ -116,10 +118,14 @@ int main(){
                 }
                 break;}
             case 7:{
-
+                save_data(Q);
+                save_log(S);
+                ulang = false;
+                std::cout << "Data pesanan dan log perubahan sudah disimpan dan dicatat\n";
                 break;}
             case 8:{
                 ulang = false;
+                std::cout << "Data pesanan dan log perubahan tidak disimpan\n";
                 break;}
         }
     }
