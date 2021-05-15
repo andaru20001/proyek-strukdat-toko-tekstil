@@ -59,11 +59,8 @@ int main(){
                 clrscr();
                 title("HAPUS PESANAN");
                 
-                std::cout << "Masukan Kode Pesanan  : ";
-                std::cin >> search;
-                find(Q, prev, search, temp);
-                catat_log(S, temp, 2);
-                hapusPesanan(Q, search);
+                daftarPesanan(Q); //Menampilkan list pesanan supaya pengguna dapat mengecek kembali pesanan yang ingin dihapus
+                hapusPesanan(Q, S);
                 break;}
             case 3: {//case search (display value dari pesanan yang ingin dicari)
                 clrscr();

@@ -242,32 +242,63 @@ void rearrange(Queue& Q, Pointer& prev, Pointer& Pesanan){      //Fungsi untuk m
     }
 }
 
-void hapusPesanan(Queue& Q, std::string search){                //menghapus pesanan yang diinginkan
+void hapusPesanan(Queue& Q, Stack& S){                //menghapus pesanan yang diinginkan
     Pointer temp;
     Pointer previous;
+    int pilihan;
+    std::string search;
     if(Q.head == nullptr){
         std::cout<<"Daftar pesanan kosong\n";
         return;
     }
-    find(Q, previous, search, temp);
-    if (temp->next == nullptr && Q.head == nullptr){    // jika hanya satu
-        Q.head = nullptr;
-        Q.tail = nullptr;
-        temp = nullptr;
-    }
-    else if (temp == Q.head){                           //kalau pesanannya berada di awal
-        Q.head = Q.head->next;
-        temp->next = nullptr;
-        delete temp;
-    }
-    else if(temp->next == nullptr){                     //diakhir
-        previous->next = nullptr;
-        delete temp;
-    }
-    else{                                               //kalau pesanannya berada di tengah2
-        previous->next = temp->next;
-        temp->next = nullptr;
-        delete temp;
+    std::cout<<"\nOption Penghapusan : \n1. Hapus Priority Tertinggi\n2. Hapus Pesanan by Search\nPilihan : ";
+    std::cin>>pilihan;
+
+    switch(pilihan){
+        case 2:{
+            std::cout << "Masukan Kode Pesanan  : ";
+            std::cin >> search;
+
+            find(Q, previous, search, temp);
+            catat_log(S, temp, 2);
+            if (temp->next == nullptr && Q.head == nullptr){  // jika hanya satu
+            Q.head = nullptr;
+            Q.tail = nullptr;
+            temp = nullptr;
+            }
+            else if (temp == Q.head){                       //kalau pesanannya berada di awal
+            Q.head = Q.head->next;
+            temp->next = nullptr;
+            delete temp;
+            }
+            else if(temp->next == nullptr){               //diakhir
+            previous->next = nullptr;
+            delete temp;
+            }
+            else{                                    //kalau pesanannya berada di tengah2
+            previous->next = temp->next;
+            temp->next = nullptr;
+            delete temp;
+            }    
+            break;
+        }
+        case 1 :{
+            catat_log(S, Q.head, 2);
+            Pointer temp = nullptr;
+            if(Q.head->next == nullptr){
+                temp = Q.head;
+                Q.head = nullptr;
+                Q.tail = nullptr;
+                delete temp;
+            }
+            else {
+                temp = Q.head;
+                Q.head = Q.head->next;
+                temp->next = nullptr;
+                delete temp;
+            }
+            break;
+        }
     }
 }
 
@@ -276,7 +307,26 @@ void undo (Stack& S, Queue& Q){                                 //Fungsi untuk m
     Pointer temp = nullptr;
 
     if (S.head->Kategori == "Tambah"){
-        hapusPesanan(Q, S.head->dataTarget->kode);
+        find(Q, prev, S.head->dataTarget->kode, temp);
+        if (temp->next == nullptr && Q.head == nullptr){  // jika hanya satu
+            Q.head = nullptr;
+            Q.tail = nullptr;
+            temp = nullptr;
+            }
+            else if (temp == Q.head){                       //kalau pesanannya berada di awal
+            Q.head = Q.head->next;
+            temp->next = nullptr;
+            delete temp;
+            }
+            else if(temp->next == nullptr){               //diakhir
+            prev->next = nullptr;
+            delete temp;
+            }
+            else{                                    //kalau pesanannya berada di tengah2
+            prev->next = temp->next;
+            temp->next = nullptr;
+            delete temp;
+            }
     }
     else if (S.head->Kategori == "Hapus"){
         tambah(Q, S.head->dataTarget);
