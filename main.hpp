@@ -62,12 +62,16 @@ void catat_log(Stack& S, Pointer& InputPesanan, int Kategori){ //Fungsi untuk me
     // 2 = hapus
     // 3 = edit
 
+    PointerData newData = new DataStack;
     // Bagian tambah
     if (Kategori == 1){
-        PointerData newData = new DataStack;
         newData->dataTarget = InputPesanan->kode;
         newData->Kategori = "Tambah";
         pushStack(S, newData);
+    }
+    //Bagian hapus
+    else if (Kategori == 2){
+
     }
 }
 
@@ -76,6 +80,9 @@ void buatPesanan(Pointer& PesananBaru){ //Fungsi untuk memasukkan default value 
     PesananBaru->deskripsi = "";
     for (int i=1; i<3; i++){
         PesananBaru->tenggat[i] = 0;
+    }
+    for (int i=1; i<3; i++){
+        PesananBaru->tglPesan[i] = 0;
     }
     PesananBaru->next = nullptr;
 }
@@ -104,7 +111,7 @@ std::string tambah_digit (int angka, int digitTarget){ //Fungsi untuk mengubah s
 void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi informasi mengenai Pesanan; bisa juga digunakan untuk menu edit
     //Memasukkan deskipsi pesanan
     std::cout << "Masukkan deskripsi pesanan :\n";
-    std::cin >> Pesanan->deskripsi;
+    std::getline(std::cin >> std::ws,Pesanan->deskripsi);
 
     //Memasukkan tanggal pesanan masuk
     std::cout << "Masukkan tanggal kapan pesanan masuk (format DD/MM/YYYY, masing-masing dipisah dengan Enter atau Space):\n";
@@ -126,9 +133,14 @@ void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi i
     else{
         Pointer temp = Q.head;
         while (temp != nullptr){
-            if (temp->tglPesan[0] == Pesanan->tglPesan[0] && temp->tglPesan[1] == Pesanan->tglPesan[1] && temp->tglPesan[2] == Pesanan->tglPesan[2]){
-                jmlPesananHariIni++;
+            if (temp->tglPesan[0] == Pesanan->tglPesan[0]){
+                if (temp->tglPesan[1] == Pesanan->tglPesan[1]){
+                    if (temp->tglPesan[2] == Pesanan->tglPesan[2]){
+                        jmlPesananHariIni++;
+                    }
+                }  
             }
+            temp = temp->next;
         }
     }
     //Kategori digunakan untuk menentukan apakah fungsi ini digunakan untuk menambah pesanan atau mengedit pesanan
@@ -150,7 +162,7 @@ void isi_data(Queue Q, Pointer& Pesanan, int kategori){ //Fungsi untuk mengisi i
     
 }
 
-void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan ke priority queue. Priority key yang digunakan adalah tanggal tenggat waktu
+void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan ke priority queue. Priority key yang digunakan adalah tanggal tenggat waktu; Bisa digunakan untuk menyusun kembali data yang sudah diedit
     if (QueueisEmpty(Q)){
         Q.head = PesananBaru;
         Q.tail = PesananBaru;
@@ -159,22 +171,13 @@ void tambah(Queue& Q, Pointer& PesananBaru){ //Fungsi untuk memasukkan pesanan k
     else{
         Pointer temp = Q.head;
         Pointer temp2 = nullptr;
-        // int check1 = std::stoi(PesananBaru->kode) % 10000; //Mengambil 4 digit paling belakang dari kode pesanan yang akan ditambahkan untuk acuan pesanan ke berapa pada tanggal yang sama
+        // int check1;
         // int check2;
 
-        while (1){
+        while (PesananBaru->tenggat[2] >= temp->tenggat[2] && PesananBaru->tenggat[1] >= temp->tenggat[1] && PesananBaru->tenggat[0] >= temp->tenggat[0]){
             if (temp == nullptr){
                 break;
             }
-            
-            if (PesananBaru->tenggat[2] >= temp->tenggat[2]){
-                if (PesananBaru->tenggat[1] >= temp->tenggat[1]){
-                    if (PesananBaru->tenggat[0] >= temp->tenggat[0]){
-                        break;
-                    }
-                }
-            }
-
             temp2 = temp;
             temp = temp->next;
         }
@@ -204,6 +207,14 @@ void find(Queue& Q, Pointer& previous, std::string search, Pointer& temp) {
     previous = temp;
     temp = temp->next;
   }
+}
+
+void rearrange(Queue& Q, Pointer& prev, Pointer& Pesanan){ //Fungsi untuk melakukan susun ulang data yang diedit sesuai dengan tenggat baru
+    //Pemisahan data dengan queue
+    prev->next = Pesanan->next;
+    Pesanan->next = nullptr;
+
+    tambah(Q, Pesanan); //Fungsi tambah dapat kembali digunakan untuk menyusun kembali priority queue sesuai dengan tenggat yang baru
 }
 
 void hapusPesanan(Queue& Q, std::string search){                //menghapus pesanan yang diinginkan
@@ -256,6 +267,7 @@ void daftarPesanan(const Queue& Q){
         std::cout << "Deskripsi : " << temp->deskripsi << '\n';
         std::cout << "Tanggal   : " << temp->tglPesan[0] << " " << temp->tglPesan[1] << " " << temp->tglPesan[2] << '\n';
         std::cout << "Tenggat   : " << temp->tenggat[0] << " " << temp->tenggat[1] << " " << temp->tenggat[2] << '\n';
+        i++;
         temp = temp->next;
     }
 }

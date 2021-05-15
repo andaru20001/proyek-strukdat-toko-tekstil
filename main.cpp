@@ -14,6 +14,9 @@ int main(){
     buatQueue(Q);
 
     // Backup data yang sudah disimpan,
+    std::string search;
+    Pointer prev, temp;
+    Pointer PesananBaru = new Pesanan;
 
     bool ulang = true;
     while(ulang){
@@ -34,12 +37,10 @@ int main(){
         // Jangan lupa sediakan opsi save dan exit dan exit without saving (mungkin bisa diletakkan di pilihan menu kode 7 dan 8)
         // Exit wihout saving cuma untuk error handling ketika pengguna mau membatalkan semua perubahan
         // Untuk variabel kode untuk pilih programnya disepakati aja kali ya, jadi "kodeProgram"
-        std::string search;
-        Pointer prev, temp;
-        Pointer PesananBaru = new Pesanan;
+        
         switch (kodeProgram){
             case 1: {//Case Tambah Pesanan
-                Pointer PesananBaru = new Pesanan;
+                PesananBaru = new Pesanan;
                 buatPesanan(PesananBaru);
                 isi_data(Q, PesananBaru, 1);
                 tambah(Q, PesananBaru);
@@ -48,6 +49,8 @@ int main(){
             case 2: {//Case Hapus Pesanan
                 std::cout << "Masukan Kode Pesanan  : ";
                 std::cin >> search;
+                find(Q, prev, search, temp);
+                catat_log(S, temp, 2);
                 hapusPesanan(Q, search);
                 break;}
             case 3: {//case search (display value dari pesanan yang ingin dicari)
@@ -68,6 +71,7 @@ int main(){
                     // std::cout << "Tanggal   : " << temp->tglPesan << '\n';
                     // std::cout << "Tenggat   : " << temp->tenggat << '\n';
                     isi_data(Q, temp, 2);
+                    rearrange(Q, prev, temp);
                 }
                 break;}
             case 6:{
